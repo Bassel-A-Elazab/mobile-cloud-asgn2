@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface VideoRepository extends CrudRepository<Video, Long>{
 	
+	// return the video by using ID.
+	Video findById(Long id);
 }
