@@ -3,10 +3,14 @@ buildscript {
 		springBootVersion = '2.1.0.RELEASE'
 	}
     repositories {
-        maven { url "https://repo.spring.io/libs-snapshot" }
+    	jcenter()
         mavenLocal()
+        
+        //maven { url "https://repo.spring.io/libs-snapshot" }
+        //mavenLocal()
     }
     dependencies {
+   
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.2.RELEASE")
     }
 }
