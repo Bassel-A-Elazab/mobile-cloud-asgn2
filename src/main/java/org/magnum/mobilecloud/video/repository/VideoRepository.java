@@ -8,6 +8,9 @@ public interface VideoRepository extends CrudRepository<Video, Long>{
 	// return the video by using ID.
 	Video findById(Long id);
 	
-	// return the video using their name.
+	// return the videos using their name.
 	Collection<Video> findByName(String name);
+	
+	// return the videos that their duration is less than specific duration.
+	Collection<Video> findByDurationLessThan(long duration);
 }
