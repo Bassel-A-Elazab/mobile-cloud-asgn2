@@ -33,4 +33,15 @@ public class VideoController {
 		return videoRep.save(video);
 	}
 	
+	// Mapping a request of /video/id to get the video info. Using ID.
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public @ResponseBody Video getVideo(@PathVariable long id){
+		Video video = videoRep.findById(id);
+		if(video == null){
+			throw new VideoNotFoundException();
+		}
+		return video;
+	}
+
+	
 }
