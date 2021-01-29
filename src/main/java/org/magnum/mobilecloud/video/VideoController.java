@@ -1,6 +1,9 @@
 package org.magnum.mobilecloud.video;
 
+import java.security.Principal;
 import java.util.Collection;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.magnum.mobilecloud.video.client.VideoNotFoundException;
 import org.magnum.mobilecloud.video.repository.Video;
@@ -43,6 +46,23 @@ public class VideoController {
 		}
 		return video;
 	}
-
+	
+	// Mapping a request of /video/{id}/like to allow user for like the videos.
+	@RequestMapping(value = "/{id}/like", method = RequestMethod.POST)
+	public void likeVideo(@PathVariable long id, Principal p, HttpServletResponse response) {
+		Video video = videoRep.findById(id);
+		if(video == null) {
+			throw new VideoNotFoundException();
+		}
+		String username = p.getName();
+		boolean liked = video.addLike(username);
+		videoRep.save(video);
+		if (liked) {
+			response.setStatus(HttpServletResponse.SC_OK);
+		}else {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		}
+		
+	}
 	
 }
