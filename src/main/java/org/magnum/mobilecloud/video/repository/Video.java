@@ -126,4 +126,13 @@ public class Video {
 			return false;
 		}
 	}
+	
+	// create a new method to add user like's videos.
+	public boolean addLike(String username) {
+		boolean added = this.likedBy.add(username);
+		if(added) {
+			this.likes++;
+		}
+		return added;
+	}
 }
