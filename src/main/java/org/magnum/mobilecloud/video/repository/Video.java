@@ -135,4 +135,13 @@ public class Video {
 		}
 		return added;
 	}
+	
+	// create a new method to remove user like's videos.
+	public boolean removeLike(String username) {
+		boolean removed = this.likedBy.remove(username);
+		if (removed) {
+			this.likes--;
+		}
+		return removed;
+	}
 }
