@@ -86,12 +86,22 @@ public class VideoController {
 	}
 	
 	// Mapping a request for get all videos that matches the passing title.
-	@RequestMapping(value="search/finByName", method = RequestMethod.GET)
-	public @ResponseBody Collection<Video> findVideoByName(@RequestParam("strName") String strName){
+	@RequestMapping(value="search/findByName", method = RequestMethod.GET)
+	public @ResponseBody Collection<Video> findVideoByName(@RequestParam("title") String strName){
 		Collection<Video> videos = videoRep.findByName(strName);
 		if(videos == null) {
 			videos = Collections.emptyList();
 		}
 		return videos;
 	}
+	
+	// Mapping a request for get all videos that duration is less than a client duration request.
+	 @RequestMapping(value = "search/findByDurationLessThan", method = RequestMethod.GET)
+	 public @ResponseBody Collection<Video> findVideoByDurationLessThan(@RequestParam("duration") long duration) {
+		 Collection<Video> videos = videoRep.findByDurationLessThan(duration);
+		 if (videos == null) {
+		videos = Collections.emptyList();
+		 }
+		 return videos;
+	 	 }
 }
