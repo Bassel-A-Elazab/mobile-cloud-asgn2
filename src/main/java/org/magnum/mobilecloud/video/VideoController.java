@@ -65,4 +65,22 @@ public class VideoController {
 		
 	}
 	
+	// Mapping a request of /video/{id}/unlike to allow user for unlike the videos.
+	@RequestMapping(value = "/{id}/unlike", method = RequestMethod.POST)
+	public void unlikeVideo(@PathVariable long id, Principal p, HttpServletResponse response) {
+		Video video = videoRep.findById(id);
+		if(video == null) {
+			throw new VideoNotFoundException();
+		}
+		String username = p.getName();
+		boolean removed = video.removeLike(username);
+		videoRep.save(video);
+		if (removed) {
+			response.setStatus(HttpServletResponse.SC_OK);
+		}else {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		}
+		
+	}
+	
 }
