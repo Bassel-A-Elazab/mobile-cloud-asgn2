@@ -2,6 +2,7 @@ package org.magnum.mobilecloud.video;
 
 import java.security.Principal;
 import java.util.Collection;
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -83,4 +85,13 @@ public class VideoController {
 		
 	}
 	
+	// Mapping a request for get all videos that matches the passing title.
+	@RequestMapping(value="search/finByName", method = RequestMethod.GET)
+	public @ResponseBody Collection<Video> findVideoByName(@RequestParam("strName") String strName){
+		Collection<Video> videos = videoRep.findByName(strName);
+		if(videos == null) {
+			videos = Collections.emptyList();
+		}
+		return videos;
+	}
 }
